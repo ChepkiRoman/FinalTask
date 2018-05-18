@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
+    <title>Orders</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"
             type="text/javascript"></script>
@@ -13,6 +14,12 @@
     <fmt:message bundle="${loc}" key="local.services" var="services"/>
     <fmt:message bundle="${loc}" key="local.contacts" var="contacts"/>
     <fmt:message bundle="${loc}" key="local.home" var="home"/>
+    <fmt:message bundle="${loc}" key="local.depart_point" var="depart"/>
+    <fmt:message bundle="${loc}" key="local.destination_point" var="dest"/>
+    <fmt:message bundle="${loc}" key="local.order_status" var="status"/>
+    <fmt:message bundle="${loc}" key="local.no_orders" var="no_orders"/>
+
+
     <%@include file="partialHeader.jsp" %>
 
     <script>
@@ -62,9 +69,9 @@
             <thead>
             <tr>
                 <td>ID</td>
-                <td>Departure point</td>
-                <td>Destination</td>
-                <td>STATUS</td>
+                <td>${depart}</td>
+                <td>${dest}</td>
+                <td>${status}</td>
                 <td></td>
                 <td></td>
 
@@ -100,7 +107,7 @@
     <c:otherwise>
         <br>
         <div class="alert alert-info">
-            There are no orders
+            ${no_orders}
         </div>
     </c:otherwise>
 

@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class CheckOrderStatusCommand implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException  {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
         Customer customer = (Customer) request.getSession().getAttribute("user");
         try {
@@ -32,8 +32,9 @@ public class CheckOrderStatusCommand implements ControllerCommand {
             request.setAttribute(ControllerConstants.MESSAGE, message);
             request.getRequestDispatcher(ControllerConstants.FINISH_PAGE).forward(request,response);
 
-        } catch (ServiceException|IOException e) {
-            e.printStackTrace();
+        } catch (ServiceException e) {
+            request.setAttribute(ControllerConstants.ERROR, "There is some technical troubles, driver will text you");
+            request.getRequestDispatcher(ControllerConstants.FINISH_PAGE).forward(request, response);
         }
 
 

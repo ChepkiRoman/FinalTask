@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class DriverDAOImpl extends AbstractDAO<Driver> {
     private static final String CREATE_QUERY = "INSERT INTO driver(name, surname, login, password, car_number, car_model, x_coord, y_coord) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String READ_BY_PHONE_AND_PASSWORD_QUERY = "SELECT * FROM driver WHERE login=? AND password=?";
+    private static final String READ_BY_PHONE_AND_PASSWORD_QUERY = "SELECT * FROM driver WHERE login=? AND password=?  AND is_active='1' AND is_banned='0'";
     private final static String UPDATE_QUERY = "UPDATE driver SET name=? , surname=? , login=? , car_number=?, car_model=?, is_banned=?, is_free=?, is_confirmed=?, is_active=? WHERE id = ?";
     private static final String DELETE_QUERY = "UPDATE driver SET is_active='0' WHERE id=?";
     private static final String READ_ALL_DRIVERS = "SELECT * FROM driver";

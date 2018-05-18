@@ -9,6 +9,7 @@ import by.tc.web.service.ServiceFactory;
 import by.tc.web.service.UserService;
 import by.tc.web.service.exception.ServiceException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import static by.tc.web.controller.impl.constant.ControllerConstants.*;
 
 public class AccountDeleteCommandImpl implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         User user = (User) request.getSession().getAttribute(USER_ROLE);
 
@@ -32,11 +33,11 @@ public class AccountDeleteCommandImpl implements ControllerCommand {
 
 
         if (userClass == Customer.class) {
-             service = ServiceFactory.getInstance().getCustomerService();
+            service = ServiceFactory.getInstance().getCustomerService();
         } else if (userClass == Driver.class) {
-             service = ServiceFactory.getInstance().getDriverService();
+            service = ServiceFactory.getInstance().getDriverService();
         } else if (userClass == Administrator.class) {
-             service = ServiceFactory.getInstance().getAdministratorService();
+            service = ServiceFactory.getInstance().getAdministratorService();
         } else {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
@@ -49,14 +50,8 @@ public class AccountDeleteCommandImpl implements ControllerCommand {
             request.getSession().invalidate();
             response.sendRedirect(INDEX_PAGE);
         } catch (ServiceException e) {
-            e.printStackTrace();
+           response.sendRedirect("/error");
         }
-
-
-
-
-
-
 
 
     }

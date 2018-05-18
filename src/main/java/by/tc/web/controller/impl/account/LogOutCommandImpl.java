@@ -11,13 +11,10 @@ import static by.tc.web.controller.impl.constant.ControllerConstants.INDEX_PAGE;
 public class LogOutCommandImpl implements ControllerCommand {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)  {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
-        try {
-            response.sendRedirect(INDEX_PAGE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        response.sendRedirect(INDEX_PAGE);
+
 
     }
 }

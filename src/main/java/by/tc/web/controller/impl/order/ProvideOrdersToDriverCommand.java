@@ -16,18 +16,24 @@ import java.util.List;
 
 public class ProvideOrdersToDriverCommand implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws  IOException{
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Driver driver = (Driver) request.getSession().getAttribute(ControllerConstants.USER_ROLE);
         if (driver != null) {
 
             try {
                 OrderService orderService = ServiceFactory.getInstance().getOrderService();
                 List<Order> orderList = orderService.getOrdersForDriver(driver.getId());
-                HttpSession session = request.getSession();
-                session.setAttribute("orderList", orderList);
-                response.sendRedirect("driverorders");
+                if (orderList != null) {
+
+                    HttpSession session = request.getSession();
+                    session.setAttribute("orderList", orderList);
+                    response.sendRedirect("driverorders");
+                } else {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                }
+
             } catch (ServiceException e) {
-                e.printStackTrace();
+                response.sendRedirect("/error");
             }
 
 

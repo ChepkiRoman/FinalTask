@@ -62,4 +62,7 @@ public final class ControllerConstants {
     public static final String DRIVERS_PAGE = "/admin/drivers";
     public static final String ORDERS_PAGE = "/admin/orders";
     public static final String CUSOMER_PAGE = "/admin/users";
+    public static final String DRIVER_REG = "/driversignup";
+    public static final String SIGNUP = "/signup";
+
 }

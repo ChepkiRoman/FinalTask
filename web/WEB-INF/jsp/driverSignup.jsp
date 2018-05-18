@@ -4,15 +4,16 @@
 
 <html>
 <head>
+    <title>Sign Up</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="../js/bootstrap.min.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="local" var="loc"/>
-    <fmt:message bundle="${loc}" key="local.login" var="login"  />
+    <fmt:message bundle="${loc}" key="local.login" var="login"/>
 
-    <fmt:message bundle="${loc}" key="local.name" var="name"  />
-    <fmt:message bundle="${loc}" key="local.surname" var="surname"  />
-    <fmt:message bundle="${loc}" key="local.password" var="password"  />
+    <fmt:message bundle="${loc}" key="local.name" var="name"/>
+    <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
+    <fmt:message bundle="${loc}" key="local.password" var="password"/>
     <fmt:message bundle="${loc}" key="local.submit" var="submit"/>
     <fmt:message bundle="${loc}" key="local.about" var="about"/>
     <fmt:message bundle="${loc}" key="local.services" var="services"/>
@@ -20,14 +21,15 @@
     <fmt:message bundle="${loc}" key="local.home" var="home"/>
     <fmt:message bundle="${loc}" key="local.car_model" var="car_model"/>
     <fmt:message bundle="${loc}" key="local.car_number" var="car_number"/>
-    <%@include file="partialHeader.jsp"%>
-
+    <fmt:message bundle="${loc}" key="local.become_driver" var="become_driver"/>
+    <%@include file="partialHeader.jsp" %>
+    <link rel="stylesheet" href="css/auth-style.css" media="screen" type="text/css"/>
 
 
 </head>
-<body class="" id="top">
+<body id="top">
 <div class="main">
-    <header >
+    <header>
         <div class="menu_block ">
             <div class="container_12">
                 <div class="grid_12">
@@ -46,51 +48,74 @@
                 <div class="clear"></div>
             </div>
         </div>
-        <div class="container_12">
-            <div class="grid_12">
-                <h1>
-                    <a href="/index">
-                        <img src="images/logo.png" alt="Your Happy Family">
-                    </a>
-                </h1>
+
+    </header>
+
+
+    <div class="content">
+        <div id="login">
+            <h3 style="font-size: 38px;margin-bottom: 35px;margin-left: 50px;width: 300px;margin-top: -40;">${become_drivere}</h3>
+            <c:out value="${error}"/>
+            <form action="FrontController" method="post">
+                <input type="hidden" name="command" value="DRIVER_REGISTRATION">
+
+
+                <fieldset class="clearfix">
+                    <p><span class="fontawesome-user"></span><input type="text" name="name" value="${name}"
+                                                                    onBlur="if(this.value == '') this.value = '${name}'"
+                                                                    onFocus="if(this.value == '${name}') this.value = ''"
+                                                                    required></p>
+                    <p><span class="fontawesome-user"></span><input type="text" name="surname" value="${surname}"
+                                                                    onBlur="if(this.value == '') this.value = '${surname}'"
+                                                                    onFocus="if(this.value == '${surname}') this.value = ''"
+                                                                    required></p>
+                    <p><span class="fontawesome-bullhorn"></span><input type="text" name="login" value="email"
+                                                                        onBlur="if(this.value == '') this.value = 'email'"
+                                                                        onFocus="if(this.value == 'email') this.value = ''"
+                                                                        required></p>
+                    <p><span class="fontawesome-flag"></span><input type="text" name="car_model" value="${car_model}"
+                                                                    onBlur="if(this.value == '') this.value = '${car_model}'"
+                                                                    onFocus="if(this.value == '${car_model}') this.value = ''"
+                                                                    required></p>
+                    <p><span class="fontawesome-flag"></span><input type="text" name="car_number" value="${car_number}"
+                                                                    onBlur="if(this.value == '') this.value = '${car_number}'"
+                                                                    onFocus="if(this.value == '${car_number}') this.value = ''"
+                                                                    required></p>
+                    <p><span class="fontawesome-lock"></span><input type="password" name="password"
+                                                                    value="${password}"
+                                                                    onBlur="if(this.value == '') this.value = '${password}'"
+                                                                    onFocus="if(this.value == '${password}') this.value = ''"
+                                                                    required></p>
+                    <input type="submit" value="${submit}" style="margin-left: 75px; margin-top: 10px;">
+                </fieldset>
+            </form>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<footer>
+    <div class="container_12">
+        <div class="grid_12">
+            <div class="f_phone"><span> <%@include file="language.jsp" %></span></div>
+            <div class="socials">
+                <a href="#" class="fa fa-twitter"></a>
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-google-plus"></a>
+            </div>
+            <div class="copy">
+                <div class="st1">
+                    <div class="brand">Your<span class="color1">T</span>axi</div>
+                </div>
             </div>
         </div>
         <div class="clear"></div>
-    </header>
-<form action="FrontController" method="post">
-    <input type="hidden" name="command" value="DRIVER_REGISTRATION"/>
-    ${name}:<br />
-    <input type="text" name="name" value="">
-    <br/>
-    ${surname}:<br />
-    <input type="text" name="surname" value="">
-    <br />
-    ${login}:<br />
-    <input type="text" name="login" value="">
-    <br>
-    ${password}:<br>
-
-    <input type="password" name="password" value="">
-    <br>
-    ${car_model}:<br>
-
-    <input type="text" name="car_model" value="">
-    <br>
-    ${car_number}:<br>
-
-    <input type="text" name="car_number" value="">
-    <br>
-
-    <input type="submit" value="${submit}">
-</form>
-
-
-</div>
-
-<div>
-    <%@include file="language.jsp"%>
-</div>
-
+    </div>
+</footer>
 
 </body>
 </html>

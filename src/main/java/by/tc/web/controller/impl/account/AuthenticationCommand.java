@@ -75,8 +75,8 @@ public class AuthenticationCommand implements ControllerCommand {
 
 
     }
-    private void displayError(String error, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute(ERROR, error);
-        req.getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
+    private void displayError(String error, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute(ERROR, error);
+        request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
     }
 }

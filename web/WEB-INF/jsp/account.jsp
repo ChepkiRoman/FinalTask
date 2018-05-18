@@ -3,10 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
+    <title>Account</title>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.login" var="login"/>
-
     <fmt:message bundle="${loc}" key="local.name" var="name"/>
     <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
@@ -15,30 +15,28 @@
     <fmt:message bundle="${loc}" key="local.services" var="services"/>
     <fmt:message bundle="${loc}" key="local.contacts" var="contacts"/>
     <fmt:message bundle="${loc}" key="local.home" var="home"/>
+    <fmt:message bundle="${loc}" key="local.log_out" var="log_out"/>
+    <fmt:message bundle="${loc}" key="local.welcome_user" var="welcome_user"/>
+    <fmt:message bundle="${loc}" key="local.welcome_driver" var="welcome_driver"/>
+    <fmt:message bundle="${loc}" key="local.your_name" var="your_name"/>
+    <fmt:message bundle="${loc}" key="local.your_surname" var="your_surname"/>
+    <fmt:message bundle="${loc}" key="local.your_email" var="your_email"/>
+    <fmt:message bundle="${loc}" key="local.book" var="book"/>
+    <fmt:message bundle="${loc}" key="local.edit_acc" var="edit_acc"/>
+    <fmt:message bundle="${loc}" key="local.delete_acc" var="delete_acc"/>
+    <fmt:message bundle="${loc}" key="local.not_confirmed" var="not_confirmed"/>
+    <fmt:message bundle="${loc}" key="local.drivers" var="drivers"/>
+    <fmt:message bundle="${loc}" key="local.admins" var="admins"/>
+    <fmt:message bundle="${loc}" key="local.orders" var="orders"/>
+    <fmt:message bundle="${loc}" key="local.users_view" var="users_view"/>
+    <fmt:message bundle="${loc}" key="local.go_to_orders" var="go_to_orders"/>
+    <fmt:message bundle="${loc}" key="local.create_admin" var="create_admin"/>
+
+    <link rel="stylesheet" href="css/auth-style.css" media="screen" type="text/css"/>
 
 
-    <title>Account</title>
     <%@include file="partialHeader.jsp" %>
 
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: auto auto auto auto auto auto;
-            grid-gap: 10px;
-            padding: 10px;
-        }
-
-        .grid-container > div {
-            background-color: #fdc903;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 15px;
-        }
-
-        .item1 {
-            grid-row: 1 / 4;
-        }
-    </style>
 </head>
 <body id="top">
 <c:choose>
@@ -54,7 +52,7 @@
                                     <li><a href="/about">${about}</a></li>
                                     <li><a href="/services">${services}</a></li>
                                     <li><a href="/contacts">${contacts}</a></li>
-                                    <li class="current"><a href="/FrontController?command=LOGOUT">Log Out</a></li>
+                                    <li class="current"><a href="/FrontController?command=LOGOUT">${log_out}</a></li>
 
                                 </ul>
                             </nav>
@@ -67,20 +65,21 @@
             </header>
             <div class="content">
                 <div class="container_12">
-                    <h3 style="text-align: center;padding-top: 75px;padding-bottom: 75px; font-size: 44px;">Welcome: customer, it yours account!</h3>
+                    <h3 style="text-align: center;padding-top: 75px;padding-bottom: 75px; font-size: 44px;">${welcome_user}</h3>
+                    <c:out value="${error}"/>
                     <div class="grid_7">
-                        <h3>Your name: <c:out value="${sessionScope.user.name}"/></h3>
+                        <h3>${your_name} <c:out value="${sessionScope.user.name}"/></h3>
                         <br>
-                        <h3>Your surname: < c:out value="${sessionScope.user.surname}"/></h3>
+                        <h3>${your_surname} < c:out value="${sessionScope.user.surname}"/></h3>
                         <br>
-                        <h3>Your login: <c:out value="${sessionScope.user.login}"/></h3>
+                        <h3>${your_email} <c:out value="${sessionScope.user.login}"/></h3>
                     </div>
                     <div class="grid_4 prefix_1">
-                        <a class="btn main-button" href="/FrontController?command=CHECK_ACTIVER_CUSTOMER_ORDER">Book your taxi</a>
+                        <a class="btn main-button" href="/FrontController?command=CHECK_ACTIVER_CUSTOMER_ORDER">${book}</a>
                         <br>
-                        <a class="btn main-button-black" href="/edit">Edit account</a>
+                        <a class="btn main-button-black" href="/edit">${edit_acc}</a>
                         <br>
-                        <a class="btn main-button-black" href="/FrontController?command=DELETE_ACCOUNT">DELETE</a>
+                        <a class="btn main-button-black" href="/FrontController?command=DELETE_ACCOUNT">${delete_acc}</a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -90,74 +89,75 @@
 
 
     <c:when test="${role eq 'driver'}">
-        <header>
-            <div class="menu_block ">
-                <div class="container_12">
-                    <div class="grid_12">
-                        <nav class="horizontal-nav full-width horizontalNav-notprocessed">
-                            <ul class="sf-menu">
-                                <li><a href="/index">${home}</a></li>
-                                <li><a href="/about">${about}</a></li>
-                                <li><a href="/services">${services}</a></li>
-                                <li><a href="/contacts">${contacts}</a></li>
-                                <li class="current"><a href="/FrontController?command=LOGOUT">Log Out</a></li>
 
-                            </ul>
-                        </nav>
+        <div class="main">
+            <header>
+                <div class="menu_block ">
+                    <div class="container_12">
+                        <div class="grid_12">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed">
+                                <ul class="sf-menu">
+                                    <li><a href="/index">${home}</a></li>
+                                    <li><a href="/about">${about}</a></li>
+                                    <li><a href="/services">${services}</a></li>
+                                    <li><a href="/contacts">${contacts}</a></li>
+                                    <li class="current"><a href="/FrontController?command=LOGOUT">${log_out}</a></li>
+
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
                         <div class="clear"></div>
+                    </div>
+                </div>
+
+            </header>
+            <div class="content">
+                <div class="container_12">
+                    <h3 style="text-align: center;padding-top: 75px;padding-bottom: 75px; font-size: 44px;">${welcome_driver}</h3>
+                    <c:out value="${error}"/>
+                    <div class="grid_7">
+                        <h3>${your_name} <c:out value="${sessionScope.user.name}"/></h3>
+                        <br>
+                        <h3>${your_surname} <c:out value="${sessionScope.user.surname}"/></h3>
+                        <br>
+                        <h3>Your login: <c:out value="${sessionScope.user.login}"/></h3>
+                    </div>
+                    <div class="grid_4 prefix_1">
+                        <c:if test="${sessionScope.user.confirmed !=false}">
+                            <a class="btn main-button" href="/FrontController?command=CHOOSE_ORDER">${go_to_orders}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.user.confirmed == false}">
+                            <h4 style="text-align: center;font-size: 20px;color:red;padding-right: 90px;border-right-width: 20px;width: 300px;">
+                               ${not_confirmed}</h4>
+                        </c:if>
+
+                        <br>
+                        <a class="btn main-button-black" href="/edit">${edit_acc}</a>
+                        <br>
+                        <a class="btn main-button-black" href="/FrontController?command=DELETE_ACCOUNT">${delete_acc}</a>
                     </div>
                     <div class="clear"></div>
                 </div>
             </div>
-
-        </header>
-
-        <div class="grid-container">
-            <div class="item1">
-                Welcome to the <c:out value="${sessionScope.role}"/>
-                <br>
-                Your name <c:out value="${sessionScope.user.name}"/>
-                <br>
-                Your surname <c:out value="${sessionScope.user.surname}"/>
-                <br>
-                Your login <c:out value="${sessionScope.user.login}"/>
-                <br>
-                <br>
-                <a href="/edit">Edit account</a>
-                <br>
-                <a href="/FrontController?command=DELETE_ACCOUNT">DELETE</a>
-                <br>
-
-
-            </div>
-            <div class="item2">
-                <c:if test="${sessionScope.user.confirmed ==true}">
-
-                    <a href="/FrontController?command=CHOOSE_ORDER">Go to ORDERS!</a>
-                </c:if>
-            </div>
-            <div class="item3"><c:if test="${sessionScope.user.confirmed ==false}">
-                You have not been confirmed by Administrator
-                and can not work yet
-
-            </c:if></div>
-
         </div>
+
 
     </c:when>
 
     <c:when test="${role eq 'admin'}">
+<div class="main">
         <header>
             <div class="menu_block ">
                 <div class="container_12">
                     <div class="grid_12">
                         <nav class="horizontal-nav full-width horizontalNav-notprocessed">
                             <ul class="sf-menu">
-                                <li><a href="FrontController?command=SHOW_ALL_DRIVERS">Drivers</a></li>
-                                <li><a href="FrontController?command=SHOW_ALL_USERS">Users</a></li>
-                                <li><a href="FrontController?command=SHOW_ALL_ADMINS">Admins</a></li>
-                                <li><a href="FrontController?command=SHOW_ALL_ORDERS">Orders</a></li>
-                                <li class="current"><a href="/FrontController?command=LOGOUT">Log Out</a></li>
+                                <li><a href="FrontController?command=SHOW_ALL_DRIVERS">${drivers}</a></li>
+                                <li><a href="FrontController?command=SHOW_ALL_USERS">${users_view}</a></li>
+                                <li><a href="FrontController?command=SHOW_ALL_ADMINS">${admins}</a></li>
+                                <li><a href="FrontController?command=SHOW_ALL_ORDERS">${orders}</a></li>
+                                <li class="current"><a href="/FrontController?command=LOGOUT">${log_out}</a></li>
                             </ul>
                         </nav>
                         <div class="clear"></div>
@@ -168,30 +168,43 @@
 
         </header>
 
-        <div align="center">
+        <div class="content">
+            <div id="login">
+                <h3 style="font-size: 38px;margin-bottom: 35px;margin-left: 40px;width: 400px;">${create_admin}</h3>
+                <form action="FrontController" method="post">
+                    <input type="hidden" name="command" value="ADMIN_REGISTRATION">
 
-            <form action="FrontController" method="post">
-                <input type="hidden" name="command" value="ADMIN_REGISTRATION">
-                    ${name}:<br/>
-                <input type="text" name="name" value="">
-                <br/>
-                    ${surname}:<br/>
-                <input type="text" name="surname" value="">
-                <br/>
-                    ${login}:<br/>
-                <input type="text" name="login" value="">
-                <br>
-                    ${password}:<br>
 
-                <input type="password" name="password" value="">
-                <br>
+                    <fieldset class="clearfix">
+                        <c:out value="${error}"/>
+                        <p><span class="fontawesome-user"></span><input type="text" name="name" value="${name}"
+                                                                        onBlur="if(this.value == '') this.value = '${name}'"
+                                                                        onFocus="if(this.value == '${name}') this.value = ''"
+                                                                        required></p>
+                        <p><span class="fontawesome-user"></span><input type="text" name="surname" value="${surname}"
+                                                                        onBlur="if(this.value == '') this.value = '${surname}'"
+                                                                        onFocus="if(this.value == '${surname}') this.value = ''"
+                                                                        required></p>
+                        <p><span class="fontawesome-bullhorn"></span><input type="text" name="login" value="${surname}"
+                                                                            onBlur="if(this.value == '') this.value = '${surname}'"
+                                                                            onFocus="if(this.value == '${surname}') this.value = ''"
+                                                                            required></p>
+                        <p><span class="fontawesome-lock"></span><input type="password" name="password"
+                                                                        value="${password}"
+                                                                        onBlur="if(this.value == '') this.value = '${password}'"
+                                                                        onFocus="if(this.value == '${password}') this.value = ''"
+                                                                        required></p>
+                        <input type="submit" value="${submit}" style="margin-left: 75px; margin-top: 10px;">
+                    </fieldset>
+                </form>
 
-                <input type="submit" value="${submit}">
-            </form>
+
+            </div>
         </div>
 
 
-        </div>
+
+</div>
     </c:when>
 </c:choose>
 </body>
@@ -206,7 +219,7 @@
             </div>
             <div class="copy">
                 <div class="st1">
-                    <div class="brand">Tour<span class="color1">T</span>axi</div>
+                    <div class="brand">Your<span class="color1">T</span>axi</div>
                 </div>
             </div>
         </div>

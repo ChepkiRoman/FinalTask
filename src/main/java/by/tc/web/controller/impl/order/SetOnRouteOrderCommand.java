@@ -12,12 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class SetOnRouteOrderCommand implements ControllerCommand {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idOrder = request.getParameter(ControllerConstants.ID);
         try {
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
@@ -27,7 +26,7 @@ public class SetOnRouteOrderCommand implements ControllerCommand {
             response.setContentType("text/plain");
             response.getWriter().write(ControllerConstants.TRUE_VALUE);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 }

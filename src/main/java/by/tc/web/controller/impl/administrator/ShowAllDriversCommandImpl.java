@@ -11,21 +11,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
-public class ShowAllDriversCommandImpl implements ControllerCommand{
+public class ShowAllDriversCommandImpl implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
         try {
             UserService<Driver> driverService = ServiceFactory.getInstance().getDriverService();
             List<Driver> driverList = driverService.getAllUsers();
-            request.setAttribute(ControllerConstants.DRIVER_LIST_ATTR, driverList);
-            request.getRequestDispatcher(ControllerConstants.DRIVERS_PAGE).forward(request,response);
+            if (driverList != null) {
+
+                request.setAttribute(ControllerConstants.DRIVER_LIST_ATTR, driverList);
+                request.getRequestDispatcher(ControllerConstants.DRIVERS_PAGE).forward(request, response);
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendRedirect("/error");
         }
     }
 }

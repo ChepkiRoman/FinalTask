@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Admin </title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"
             type="text/javascript"></script>
@@ -27,9 +27,6 @@
             {
                 event.preventDefault();
             }
-
-
-
         }
     </script>
 

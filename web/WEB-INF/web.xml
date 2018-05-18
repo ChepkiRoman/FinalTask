@@ -8,14 +8,6 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!--<servlet>-->
-        <!--<servlet-name>Controller</servlet-name>-->
-        <!--<servlet-class>by.tc.web.controller.FrontController</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Controller</servlet-name>-->
-        <!--<url-pattern>/controller</url-pattern>-->
-    <!--</servlet-mapping>-->
 
     <servlet>
         <display-name>FrontController</display-name>
@@ -27,15 +19,6 @@
         <url-pattern>/FrontController</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <display-name>Serv</display-name>
-        <servlet-name>Serv</servlet-name>
-        <servlet-class>by.tc.web.controller.GetUserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Serv</servlet-name>
-        <url-pattern>/serv</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>IndexPage</servlet-name>
@@ -209,7 +192,32 @@
         <url-pattern>/finish</url-pattern>
     </servlet-mapping>
 
+    <filter>
+    <filter-name>AdminUrlFilter</filter-name>
+    <filter-class>by.tc.web.filter.AdminUrlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    <filter-name>AdminUrlFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 
+    <!--<filter>-->
+        <!--<filter-name>AccountUrlFilter</filter-name>-->
+        <!--<filter-class>by.tc.web.filter.AccountFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>AccountUrlFilter</filter-name>-->
+        <!--<servlet-name>FrontController</servlet-name>-->
+    <!--</filter-mapping>-->
+
+    <!--<filter>-->
+        <!--<filter-name>DriverFilter</filter-name>-->
+        <!--<filter-class>by.tc.web.filter.DriverFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>DriverFilter</filter-name>-->
+        <!--<servlet-name>FrontController</servlet-name>-->
+    <!--</filter-mapping>-->
 
 
 

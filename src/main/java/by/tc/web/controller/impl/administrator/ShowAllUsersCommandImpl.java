@@ -19,10 +19,15 @@ public class ShowAllUsersCommandImpl implements ControllerCommand{
         try {
             UserService<Customer> customerService = ServiceFactory.getInstance().getCustomerService();
             List<Customer> customerList = customerService.getAllUsers();
-            request.setAttribute(ControllerConstants.CUSTOMER_LIST_ATTR, customerList);
-            request.getRequestDispatcher(ControllerConstants.CUSOMER_PAGE).forward(request,response);
+            if(customerList!=null){
+                request.setAttribute(ControllerConstants.CUSTOMER_LIST_ATTR, customerList);
+                request.getRequestDispatcher(ControllerConstants.CUSOMER_PAGE).forward(request,response);
+            }else{
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
+
         } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendRedirect("/error");
         }
     }
 }

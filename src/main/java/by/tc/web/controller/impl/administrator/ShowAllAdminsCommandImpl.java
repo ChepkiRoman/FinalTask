@@ -20,10 +20,14 @@ public class ShowAllAdminsCommandImpl implements ControllerCommand {
             UserService<Administrator> administratorService = ServiceFactory.getInstance().getAdministratorService();
             List<Administrator> administratorList = null;
             administratorList = administratorService.getAllUsers();
-            request.setAttribute(ControllerConstants.ADMIN_LIST_ATTR, administratorList);
-            request.getRequestDispatcher(ControllerConstants.ADMINS_PAGE).forward(request,response);
-        } catch (ServiceException| IOException e) {
-            request.getRequestDispatcher("").forward(request,response);
+            if(administratorList!=null){
+                request.setAttribute(ControllerConstants.ADMIN_LIST_ATTR, administratorList);
+                request.getRequestDispatcher(ControllerConstants.ADMINS_PAGE).forward(request,response);
+            }else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
+        } catch (ServiceException e) {
+            response.sendRedirect("/error");
         }
 
     }

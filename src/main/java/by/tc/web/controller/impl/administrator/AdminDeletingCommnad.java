@@ -11,11 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class AdminDeletingCommnad implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idAdmin = Integer.valueOf(request.getParameter(ControllerConstants.ID));
         try {
             UserService<Administrator> administratorService = ServiceFactory.getInstance().getAdministratorService();
@@ -23,9 +22,10 @@ public class AdminDeletingCommnad implements ControllerCommand {
 
             administratorService.delete(administrator);
 
-
         } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendRedirect("/error");
         }
     }
+
+
 }

@@ -131,7 +131,7 @@
             </div>
             <div class="copy">
                 <div class="st1">
-                    <div class="brand">Tour<span class="color1">T</span>axi </div>
+                    <div class="brand">Your<span class="color1">T</span>axi </div>
                 </div>
             </div>
         </div>

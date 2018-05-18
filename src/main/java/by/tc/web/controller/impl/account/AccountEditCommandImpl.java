@@ -9,6 +9,7 @@ import by.tc.web.service.ServiceFactory;
 import by.tc.web.service.UserService;
 import by.tc.web.service.exception.ServiceException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import static by.tc.web.controller.impl.constant.ControllerConstants.*;
 
 public class AccountEditCommandImpl implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute(USER_ROLE);
         String name = request.getParameter(USER_NAME);
         String surname = request.getParameter(USER_SURNAME);
@@ -45,7 +46,8 @@ public class AccountEditCommandImpl implements ControllerCommand {
             service.update(user);
             response.sendRedirect(ACCOUNT_PAGE);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            request.setAttribute("error", "Please provide a valid values");
+            request.getRequestDispatcher(ACCOUNT_PAGE).forward(request, response);
         }
 
 

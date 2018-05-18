@@ -4,7 +4,7 @@
 
 <html>
 <head>
-
+    <title>Login</title>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.signin" var="signin"/>
@@ -17,7 +17,13 @@
     <fmt:message bundle="${loc}" key="local.home" var="home"/>
     <fmt:message bundle="${loc}" key="local.signup" var="signup"/>
     <fmt:message bundle="${loc}" key="local.orderNow" var="orderNow"/>
-    <title>LogIn</title>
+    <fmt:message bundle="${loc}" key="local.login_view" var="login_view"/>
+    <fmt:message bundle="${loc}" key="local.you_dont_have_acc" var="dont_have_acc"/>
+    <fmt:message bundle="${loc}" key="local.register" var="register"/>
+    <fmt:message bundle="${loc}" key="local.do_you_want_be_driver" var="became_driver"/>
+    <fmt:message bundle="${loc}" key="local.lets_go" var="go"/>
+
+
     <%@include file="partialHeader.jsp" %>
     <link rel="stylesheet" href="css/auth-style.css" media="screen" type="text/css"/>
 
@@ -49,15 +55,16 @@
 
     <div class="content">
         <div id="login">
-            <h3 style="font-size: 38px;margin-bottom: 35px;margin-left: 120px;">Log In</h3>
+            <h3 style="font-size: 38px;margin-bottom: 35px;margin-left: 120px;">${login_view}</h3>
+            <c:out value="${error}"/>
             <form action="FrontController" method="post">
                 <input type="hidden" name="command" value="AUTHENTICATION">
 
-                <form action="javascript:void(0);" method="get">
+
                     <fieldset class="clearfix">
-                        <p><span class="fontawesome-user"></span><input type="text" name="login" value="${signin}"
-                                                                        onBlur="if(this.value == '') this.value = '${signin}'"
-                                                                        onFocus="if(this.value == '${signin}') this.value = ''"
+                        <p><span class="fontawesome-bullhorn"></span><input type="text" name="login" value="email"
+                                                                        onBlur="if(this.value == '') this.value = 'email'"
+                                                                        onFocus="if(this.value == 'email') this.value = ''"
                                                                         required></p>
                         <p><span class="fontawesome-lock"></span><input type="password" name="password"
                                                                         value="${password}"
@@ -66,17 +73,17 @@
                                                                         required></p>
                         <input type="submit" value="Отправить" style="margin-left: 75px; margin-top: 10px;">
                     </fieldset>
-                </form>
-                <p>Нет аккаунта? &nbsp;&nbsp;<a href="/signup">Регистрация</a><span
-                        class="fontawesome-arrow-right"></span>
-                </p>
-
-                <p>Хотите стать водителем? &nbsp;&nbsp;<a href="/driversignup">Вперед!</a><span
-                        class="fontawesome-arrow-right"></span>
-                </p>
-
-
             </form>
+                <p>${dont_have_acc} &nbsp;&nbsp;<a href="/signup">${register}</a><span
+                        class="fontawesome-arrow-right"></span>
+                </p>
+
+                <p>${became_driver} &nbsp;&nbsp;<a href="/driversignup">${go}</a><span
+                        class="fontawesome-arrow-right"></span>
+                </p>
+
+
+
         </div>
     </div>
 </div>
@@ -92,7 +99,7 @@
             </div>
             <div class="copy">
                 <div class="st1">
-                    <div class="brand">Tour<span class="color1">T</span>axi</div>
+                    <div class="brand">Your<span class="color1">T</span>axi</div>
                 </div>
             </div>
         </div>

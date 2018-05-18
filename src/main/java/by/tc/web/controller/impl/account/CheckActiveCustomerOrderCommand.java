@@ -12,13 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static by.tc.web.controller.impl.constant.ControllerConstants.*;
 
 public class CheckActiveCustomerOrderCommand implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
         Customer customer = (Customer) request.getSession().getAttribute(USER_ROLE);
         try {
@@ -29,9 +28,8 @@ public class CheckActiveCustomerOrderCommand implements ControllerCommand {
                 response.sendRedirect(FINISH_PAGE);
             }
 
-
-        } catch (ServiceException| IOException e) {
-            e.printStackTrace();
+            } catch (ServiceException e) {
+            response.sendRedirect("/error");
         }
     }
 }

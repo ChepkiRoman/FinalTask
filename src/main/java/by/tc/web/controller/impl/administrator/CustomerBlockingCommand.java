@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.tc.web.controller.impl.constant.ControllerConstants.TRUE_VALUE;
-
 public class CustomerBlockingCommand implements ControllerCommand {
 
     @Override
@@ -21,12 +19,11 @@ public class CustomerBlockingCommand implements ControllerCommand {
         try {
             UserService<Customer> customerService = ServiceFactory.getInstance().getCustomerService();
             boolean confirm =  customerService.block(idDriver);
-            if (confirm){
-                response.setContentType("text/plain");
-                response.getWriter().write(TRUE_VALUE);
+            if (!confirm){
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendRedirect("/error");
         }
     }
 }

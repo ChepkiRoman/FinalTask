@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class CreateOrderCommand implements ControllerCommand {
 
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DriverService driverService = new DriverService();
         Customer customer = (Customer) request.getSession().getAttribute(ControllerConstants.USER_ROLE);
         Order order = new Order();
@@ -42,32 +41,42 @@ public class CreateOrderCommand implements ControllerCommand {
         order.setStart(startPoint);
         order.setEnd(endPoint);
 
-
-
-
-
         if (order != null) {
             try {
                 HttpSession session = request.getSession();
                 session.setAttribute(ControllerConstants.ORDER_ATTR, order);
                 List<Driver> driverList = driverService.getFreeDrivers();
-                List<Double> distance =  new ArrayList<>();
+                List<AvailableDriver> availableDriverList = new ArrayList<>();
+
 
                 for (int i = 0; i < driverList.size(); i++) {
+                    AvailableDriver availableDriver = new AvailableDriver();
                     Driver driver = driverList.get(i);
-                    distance.add(LocationHandler.getDistance(driver.getLocation(), order.getStart()));
+                    double distance = LocationHandler.getDistance(order.getStart(), driver.getLocation());
+                    availableDriver.setDriver(driver);
+                    availableDriver.setDistance(distance);
+                    availableDriver.setArrival_time(LocationHandler.getTimeByDistance(distance));
+                    availableDriverList.add(availableDriver);
                 }
                 String nextJSP = ControllerConstants.MAIN_PAGE;
                 RequestDispatcher dispatcher = request.getRequestDispatcher(nextJSP);
-                request.setAttribute("driverList", driverList);
-                request.setAttribute("distance", distance);
+                request.setAttribute("driverList", availableDriverList);
+                request.setAttribute("from", from);
+                request.setAttribute("destination", destination);
                 dispatcher.forward(request, response);
+
+//                String json = new Gson().toJson(availableDriverList);
+//                response.setContentType("application/json");
+//                response.setCharacterEncoding("UTF-8");
+//                response.getWriter().write(json);
+
             } catch (ServiceException e) {
                 response.sendRedirect("/error");
             }
+
+        } else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-
-
     }
 
 

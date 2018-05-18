@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class CustomerDAOImpl extends AbstractDAO<Customer> {
     private static final String CREATE_QUERY = "INSERT INTO user(name, surname, login, password) VALUES (?, ?, ?, ?)";
-    private static final String READ_BY_PHONE_AND_PASSWORD_QUERY = "SELECT * FROM user WHERE login=? AND password=? AND role='user' AND is_active='1'";
+    private static final String READ_BY_PHONE_AND_PASSWORD_QUERY = "SELECT * FROM user WHERE login=? AND password=? AND role='user' AND is_active='1' AND is_banned='0'";
     private final static String UPDATE_QUERY = "UPDATE user SET name=? , surname=?, is_banned=? WHERE id = ?";
     private static final String DELETE_QUERY = "UPDATE user SET is_active='0' WHERE id=?";
     private static final String READ_ALL_USERS = "SELECT * FROM user";

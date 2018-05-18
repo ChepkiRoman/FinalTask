@@ -11,24 +11,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static by.tc.web.controller.impl.constant.ControllerConstants.TRUE_VALUE;
 
 public class CustomerUnblockingCommand implements ControllerCommand {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.valueOf(request.getParameter(ControllerConstants.ID));
         try {
             UserService<Customer> customerService = ServiceFactory.getInstance().getCustomerService();
             boolean confirm =  customerService.unblock(id);
-            if (confirm){
-                response.setContentType("text/plain");
-                response.getWriter().write(TRUE_VALUE);
+            if (!confirm){
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
             }
+            response.setContentType("text/plain");
+            response.getWriter().write(TRUE_VALUE);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendRedirect("/error");
         }
     }
 }

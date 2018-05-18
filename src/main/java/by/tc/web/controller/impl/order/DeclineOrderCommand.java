@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class DeclineOrderCommand implements ControllerCommand {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException  {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
         Customer customer = (Customer) request.getSession().getAttribute(ControllerConstants.USER_ROLE);
         try {
@@ -24,8 +24,8 @@ public class DeclineOrderCommand implements ControllerCommand {
             order.setStatus(OrderStatus.DECLINED);
             orderService.update(order);
             response.sendRedirect(ControllerConstants.ACCOUNT_PAGE);
-        } catch (ServiceException| IOException e) {
-            e.printStackTrace();
+        } catch (ServiceException e) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
 
     }
