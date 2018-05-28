@@ -35,7 +35,7 @@ public class AdminRegistrationCommandImpl implements ControllerCommand {
             return;
         }
         String surname = request.getParameter(USER_SURNAME);
-        if(!Validator.isSurnameValid(surname)){
+        if (!Validator.isSurnameValid(surname)) {
             displayError("Please provide a valid surname ", request, response);
             return;
         }
@@ -51,7 +51,13 @@ public class AdminRegistrationCommandImpl implements ControllerCommand {
 
 
             UserService<Administrator> administratorService = ServiceFactory.getInstance().getAdministratorService();
-            administratorService.save(admin);
+            Administrator checkAdmin = administratorService.readByLoginAndPassword(login, hashedPassword);
+            if (checkAdmin == null) {
+                administratorService.save(admin);
+            }else {
+                displayError("This user already exists", request, response);
+                return;
+            }
         } catch (ServiceException e) {
             displayError("An error has occurred. Please try again later.", request, response);
 

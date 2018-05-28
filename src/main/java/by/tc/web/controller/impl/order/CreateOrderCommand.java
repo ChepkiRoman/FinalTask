@@ -61,8 +61,6 @@ public class CreateOrderCommand implements ControllerCommand {
                 String nextJSP = ControllerConstants.MAIN_PAGE;
                 RequestDispatcher dispatcher = request.getRequestDispatcher(nextJSP);
                 request.setAttribute("driverList", availableDriverList);
-                request.setAttribute("from", from);
-                request.setAttribute("destination", destination);
                 dispatcher.forward(request, response);
 
 //                String json = new Gson().toJson(availableDriverList);

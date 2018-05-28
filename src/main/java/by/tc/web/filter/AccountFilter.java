@@ -21,10 +21,7 @@ public class AccountFilter implements Filter{
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         HttpSession session = req.getSession(false);
 
-        if (session == null) {
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+
         User user = (User) session.getAttribute(ControllerConstants.USER_ROLE);
         if (user == null) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN);

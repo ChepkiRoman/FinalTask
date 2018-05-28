@@ -7,6 +7,7 @@ import by.tc.web.entity.Driver;
 import by.tc.web.entity.User;
 import by.tc.web.service.Autentificator;
 import by.tc.web.service.HashGenerator;
+import by.tc.web.service.Validator;
 import by.tc.web.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -27,15 +28,15 @@ public class AuthenticationCommand implements ControllerCommand {
 
 
 
-//        if (!Validator.isLoginValid(login)) {
-//            response.sendRedirect("/error");
-//            return;
-//        }
-//
-//        if (!Validator.isPasswordValid(password)) {
-//            response.sendRedirect("/error");
-//            return;
-//        }
+        if(!Validator.isEmailValid(login)){
+            displayError("Please provide a valid email ", request, response);
+            return;
+        }
+
+        if (!Validator.isPasswordValid(password)) {
+            displayError("Please provide a valid password ", request, response);
+            return;
+        }
 
 
         try {

@@ -50,6 +50,7 @@ public final class ControllerConstants {
     private static final String COMMAND = "command";
 
 
+
     /**
      * pages
      * */
@@ -64,5 +65,6 @@ public final class ControllerConstants {
     public static final String CUSOMER_PAGE = "/admin/users";
     public static final String DRIVER_REG = "/driversignup";
     public static final String SIGNUP = "/signup";
+    public static final String DRIVER_ORDERS = "/driverorders";
 
 }

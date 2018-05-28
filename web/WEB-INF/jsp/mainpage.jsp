@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>BookPage</title>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.about" var="about"/>
@@ -20,24 +20,37 @@
     <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
     <fmt:message bundle="${loc}" key="local.distance" var="distance"/>
     <fmt:message bundle="${loc}" key="local.arrival_time" var="arrival_time"/>
+
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
+    <script src="https://code.jquery.com/jquery-1.10.2.js"
+            type="text/javascript"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <style id="jsbin-css">
+    <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=en_US"></script>
+
+    <style>
         td {
             border: 1px #DDD solid;
             padding: 5px;
             cursor: pointer;
         }
+
         .selected {
             background-color: brown !important;
             color: #FFF;
         }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <%@include file="partialHeader.jsp" %>
 
+        #map {
+            width: 100% !important;
+            height: 70% !important;
+        }
+    </style>
+
+
+    <%@include file="partialHeader.jsp" %>
     <link rel="stylesheet" href="css/booking.css">
+    <script type="text/javascript" src="/js/order.js"></script>
 
 </head>
 <body class="page1" id="top">
@@ -70,26 +83,32 @@
             </div>
         </div>
         <div class="clear"></div>
-
     </header>
+
 
     <div class="content">
         <div class="container_12">
+            <div id="mapContainer">
             <h3>${booking_form}</h3>
-            <form id="bookingForm" action="FrontController" method="post">
+            <%--<div id="map" style=""></div>--%>
+            <form id="bookingForm" action="FrontController">
                 <input type="hidden" name="command" value="CREATE_ORDER">
                 <input style="width: 400px;height: 47px;" name="from" placeholder="From:" type="text"  value="${from}" required="true">
 
                 <input style="width: 400px;margin-left: 50px;height: 47px;" name="destination" value="${destination}" placeholder="To:"
-                       type="text" required="true">
+                type="text" required="true">
+                <div class="clear"></div>
                 <input class="btn" id="bookSuccessButtonId" type="submit" value="${submit}"
                        style="margin-left: 45px;margin-bottom: 16px;height: 45px;width: 128px; background-color:#fdc903">
-                <div class="clear"></div>
+
             </form>
+
+
             <div class="clear"></div>
+            </div>
         </div>
 
-        <br>
+
         <form action="FrontController" method="post" id="userForm">
             <input type="hidden" name="command" value="FIND_DRIVER"/>
             <input type="hidden" id="idDriver" name="idDriver"/>
@@ -123,18 +142,17 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <input type="submit" value="${submit}" class="ok" style="margin-left: 45px;margin-bottom: 16px;height: 45px;width: 128px; background-color:#fdc903">
+                    <input type="submit" value="${submit}" class="ok"
+                           style="margin-left: 45px;margin-bottom: 16px;height: 45px;width: 128px; background-color:#fdc903">
                 </c:when>
                 <c:otherwise>
 
 
                 </c:otherwise>
             </c:choose>
-
-
         </form>
 
-        <script id="jsbin-javascript">
+        <script>
             var id
             $("#table tr").click(function () {
                 $(this).addClass('selected').siblings().removeClass('selected');

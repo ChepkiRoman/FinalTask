@@ -32,8 +32,6 @@ public class DriverService implements UserService<Driver> {
     }
 
 
-
-
     @Override
     public void update(Driver driver) throws ServiceException {
         try {
@@ -46,7 +44,7 @@ public class DriverService implements UserService<Driver> {
     public List<Driver> getAllUsers() throws ServiceException {
         List<Driver> userList = null;
         try {
-            userList =  driverDAO.getAllUsers();
+            userList = driverDAO.getAllUsers();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -85,7 +83,7 @@ public class DriverService implements UserService<Driver> {
         Driver driver = null;
 
         try {
-           driver = (Driver) driverDAO.readByID(id);
+            driver = (Driver) driverDAO.readByID(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -105,10 +103,21 @@ public class DriverService implements UserService<Driver> {
 
     }
 
+    @Override
+    public Driver readByLoginAndPassword(String login, String password) throws ServiceException {
+        Driver driver = null;
+        try {
+            driver = driverDAO.readByLoginAndPassword(login, password);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return driver;
+    }
+
     public List<Driver> getFreeDrivers() throws ServiceException {
         List<Driver> driverList = null;
         try {
-           driverList = driverDAO.getAllFreeDrivers();
+            driverList = driverDAO.getAllFreeDrivers();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

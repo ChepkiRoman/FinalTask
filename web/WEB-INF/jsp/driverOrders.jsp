@@ -63,6 +63,10 @@
 <body class="page1" id="top">
 <br>
 
+<c:if test="${not empty message}">
+    ${message}
+</c:if>
+
 <c:choose>
     <c:when test="${not empty orderList}">
         <table class="table table-striped" id="table">

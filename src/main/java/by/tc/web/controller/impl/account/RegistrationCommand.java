@@ -20,23 +20,23 @@ public class RegistrationCommand implements ControllerCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter(LOGIN);
-        if(Validator.isEmailValid(login)){
+        if(!Validator.isEmailValid(login)){
             displayError("Please provide a valid email ", request, response);
             return;
         }
         String password = request.getParameter(PASSWORD);
-        if(Validator.isPasswordValid(password)){
+        if(!Validator.isPasswordValid(password)){
             displayError("Please provide a valid password ", request, response);
             return;
         }
         String hashedPassword = null;
         String name = request.getParameter(USER_NAME);
-        if(Validator.isNameValid(name)){
+        if(!Validator.isNameValid(name)){
             displayError("Please provide a valid name ", request, response);
             return;
         }
         String surname = request.getParameter(USER_SURNAME);
-        if(Validator.isSurnameValid(surname)){
+        if(!Validator.isSurnameValid(surname)){
             displayError("Please provide a valid surname ", request, response);
             return;
         }
@@ -50,7 +50,16 @@ public class RegistrationCommand implements ControllerCommand {
 
 
             UserService<Customer> customerService = ServiceFactory.getInstance().getCustomerService();
-            customerService.save(user);
+            Customer checkUser = customerService.readByLoginAndPassword(login,hashedPassword);
+            if(checkUser == null){
+                customerService.save(user);
+            }else {
+                displayError("This user already exists", request, response);
+                return;
+            }
+
+
+
         } catch (ServiceException e) {
             displayError("An error has occurred. Please try again later.", request, response);
         }

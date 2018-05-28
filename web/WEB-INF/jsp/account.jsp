@@ -180,20 +180,20 @@
                         <p><span class="fontawesome-user"></span><input type="text" name="name" value="${name}"
                                                                         onBlur="if(this.value == '') this.value = '${name}'"
                                                                         onFocus="if(this.value == '${name}') this.value = ''"
-                                                                        required></p>
+                                                                        required pattern="[A-Z][a-z]+"></p>
                         <p><span class="fontawesome-user"></span><input type="text" name="surname" value="${surname}"
                                                                         onBlur="if(this.value == '') this.value = '${surname}'"
                                                                         onFocus="if(this.value == '${surname}') this.value = ''"
-                                                                        required></p>
+                                                                        required pattern="[A-Z][a-z]+"></p>
                         <p><span class="fontawesome-bullhorn"></span><input type="text" name="login" value="${surname}"
                                                                             onBlur="if(this.value == '') this.value = '${surname}'"
                                                                             onFocus="if(this.value == '${surname}') this.value = ''"
-                                                                            required></p>
+                                                                            required pattern="([a-zA-Z0-9]+)(@)([a-zA-Z]+)(\.)([a-zA-Z]){2,3}"></p>
                         <p><span class="fontawesome-lock"></span><input type="password" name="password"
                                                                         value="${password}"
                                                                         onBlur="if(this.value == '') this.value = '${password}'"
                                                                         onFocus="if(this.value == '${password}') this.value = ''"
-                                                                        required></p>
+                                                                        required pattern="^(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"></p>
                         <input type="submit" value="${submit}" style="margin-left: 75px; margin-top: 10px;">
                     </fieldset>
                 </form>

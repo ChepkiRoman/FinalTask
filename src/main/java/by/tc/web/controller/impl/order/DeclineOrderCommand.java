@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 public class DeclineOrderCommand implements ControllerCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,6 +25,7 @@ public class DeclineOrderCommand implements ControllerCommand {
             order.setStatus(OrderStatus.DECLINED);
             orderService.update(order);
             response.sendRedirect(ControllerConstants.ACCOUNT_PAGE);
+
         } catch (ServiceException e) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }

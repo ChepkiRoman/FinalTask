@@ -77,5 +77,18 @@ public class AdministratorService implements UserService<Administrator> {
         throw new UnsupportedOperationException("Using method from driver in admin service class");
     }
 
+    @Override
+    public Administrator readByLoginAndPassword(String login, String password) throws ServiceException {
+        Administrator administrator = null;
+
+        try {
+            administrator = administratorDAO.readByLoginAndPassword(login,password);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return administrator;
+
+    }
+
 
 }

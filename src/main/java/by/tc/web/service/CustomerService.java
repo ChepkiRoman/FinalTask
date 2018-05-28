@@ -86,5 +86,17 @@ public class CustomerService implements UserService<Customer> {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public Customer readByLoginAndPassword(String login, String password) throws ServiceException {
+        Customer customer = null;
+
+        try {
+            customer = customerDAO.readByLoginAndPassword(login, password);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return customer;
+    }
+
 
 }

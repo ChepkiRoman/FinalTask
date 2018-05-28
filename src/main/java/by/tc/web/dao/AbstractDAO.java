@@ -132,12 +132,11 @@ public abstract class AbstractDAO<T> implements DAO<T> {
                     resultSet.beforeFirst();
                 }
             }
-
             if (!resultSet.next()) {
                 return null;
             }
 
-           return parseResultSet(resultSet);
+            return parseResultSet(resultSet);
         } catch (ConnectionPoolException e) {
             logger.error("Cannot execute query -> ConnectionPool", e);
             throw new DAOException(e);

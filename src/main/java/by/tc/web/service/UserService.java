@@ -21,5 +21,7 @@ public interface UserService<T> {
 
     boolean confirm(int id) throws ServiceException;
 
+    T readByLoginAndPassword(String login, String password) throws ServiceException;
+
 
 }
