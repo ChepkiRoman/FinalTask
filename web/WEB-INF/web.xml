@@ -86,7 +86,6 @@
     </servlet-mapping>
 
 
-
     <servlet>
         <servlet-name>AdministratorDrivers</servlet-name>
         <jsp-file>/WEB-INF/jsp/administrator/drivers.jsp</jsp-file>
@@ -117,8 +116,6 @@
         <servlet-name>AdministratorAdmins</servlet-name>
         <url-pattern>/admin/admins</url-pattern>
     </servlet-mapping>
-
-
 
 
     <servlet>
@@ -193,11 +190,11 @@
     </servlet-mapping>
 
     <filter>
-    <filter-name>AdminUrlFilter</filter-name>
-    <filter-class>by.tc.web.filter.AdminUrlFilter</filter-class>
+        <filter-name>AdminUrlFilter</filter-name>
+        <filter-class>by.tc.web.filter.AdminUrlFilter</filter-class>
     </filter>
     <filter-mapping>
-    <filter-name>AdminUrlFilter</filter-name>
+        <filter-name>AdminUrlFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
 
@@ -221,12 +218,16 @@
         <filter-name>DriverFilter</filter-name>
         <url-pattern>/finish</url-pattern>
 
-
     </filter-mapping>
 
-
-
-
+    <!--<filter>-->
+        <!--<filter-name>CharFilter</filter-name>-->
+        <!--<filter-class>by.tc.web.filter.DriverFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>CharFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 
 
 </web-app>

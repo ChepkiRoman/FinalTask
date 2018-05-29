@@ -29,25 +29,6 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=en_US"></script>
 
-    <style>
-        td {
-            border: 1px #DDD solid;
-            padding: 5px;
-            cursor: pointer;
-        }
-
-        .selected {
-            background-color: brown !important;
-            color: #FFF;
-        }
-
-        #map {
-            width: 100% !important;
-            height: 70% !important;
-        }
-    </style>
-
-
     <%@include file="partialHeader.jsp" %>
     <link rel="stylesheet" href="css/booking.css">
     <script type="text/javascript" src="/js/order.js"></script>

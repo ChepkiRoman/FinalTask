@@ -10,7 +10,6 @@
     <script>
         function delete_admin(id){
 
-
             if(confirm("Are you sure?"))
             {
                 $.ajax({
