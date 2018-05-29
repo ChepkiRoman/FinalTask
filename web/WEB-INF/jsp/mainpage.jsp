@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customTag" %>
 <html>
 <head>
     <title>BookPage</title>
@@ -20,6 +21,7 @@
     <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
     <fmt:message bundle="${loc}" key="local.distance" var="distance"/>
     <fmt:message bundle="${loc}" key="local.arrival_time" var="arrival_time"/>
+    <fmt:message bundle="${loc}" key="local.price" var="price_text"/>
 
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -58,7 +60,7 @@
             <div class="grid_12">
                 <h1>
                     <a href="/index">
-                        <img src="images/logo.png" alt="Your Happy Family">
+                        <ctg:logo/>
                     </a>
                 </h1>
             </div>
@@ -105,6 +107,7 @@
                             <td>${car_model}</td>
                             <td>${distance}</td>
                             <td>${arrival_time}</td>
+                            <td>${price_text}</td>
                         </tr>
                         </thead>
                         <c:forEach var="drivers" items="${driverList}">
@@ -120,6 +123,7 @@
                                 <td>${drivers.driver.carModel}</td>
                                 <td>${drivers.distance}</td>
                                 <td>${drivers.arrival_time}</td>
+                                <td>${ride_price}</td>
                             </tr>
                         </c:forEach>
                     </table>

@@ -47,7 +47,7 @@
     </header>
     <div class="content">
         <div id="login">
-            <h3 style="font-size: 38px;margin-bottom: 35px;margin-left: 120px;">${signup}</h3>
+            <h3 style="font-size: 38px;margin-bottom: 35px;margin-left: 100px;">${signup}</h3>
             <form action="FrontController" method="post">
                 <input type="hidden" name="command" value="REGISTRATION">
 

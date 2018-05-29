@@ -220,14 +220,12 @@
 
     </filter-mapping>
 
-    <!--<filter>-->
-        <!--<filter-name>CharFilter</filter-name>-->
-        <!--<filter-class>by.tc.web.filter.DriverFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>CharFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <jsp-config>
+        <taglib>
+            <taglib-uri>customTag</taglib-uri>
+            <taglib-location>/WEB-INF/tld/custom.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 
 
 </web-app>

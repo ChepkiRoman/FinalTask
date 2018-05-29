@@ -8,7 +8,7 @@ public class LocationHandler {
 
     public static double getRandomCoordinate() {
         double rangeMin = 0;
-        double rangeMax = 50;
+        double rangeMax = 100;
         Random random = new Random();
         double randomValue = rangeMin + (rangeMax - rangeMin) * random.nextDouble();
         return randomValue;
@@ -31,6 +31,11 @@ public class LocationHandler {
 
         return time;
 
+    }
+
+    public static double getCost(double distance){
+        double cost = distance * 1.2;
+        return cost;
     }
 
 }

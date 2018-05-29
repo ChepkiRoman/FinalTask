@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,11 @@ public class CreateOrderCommand implements ControllerCommand {
 
         order.setStart(startPoint);
         order.setEnd(endPoint);
+        double userDistance = LocationHandler.getDistance(startPoint, endPoint);
+        double price = LocationHandler.getCost(userDistance);
+        String formattedDouble = new DecimalFormat("#0.00").format(price);
+        order.setPrice(Double.valueOf(formattedDouble));
+
 
         if (order != null) {
             try {
@@ -54,13 +60,14 @@ public class CreateOrderCommand implements ControllerCommand {
                     Driver driver = driverList.get(i);
                     double distance = LocationHandler.getDistance(order.getStart(), driver.getLocation());
                     availableDriver.setDriver(driver);
-                    availableDriver.setDistance(distance);
+                    availableDriver.setDistance((int)distance);
                     availableDriver.setArrival_time(LocationHandler.getTimeByDistance(distance));
                     availableDriverList.add(availableDriver);
                 }
                 String nextJSP = ControllerConstants.MAIN_PAGE;
                 RequestDispatcher dispatcher = request.getRequestDispatcher(nextJSP);
                 request.setAttribute("driverList", availableDriverList);
+                request.setAttribute("ride_price", formattedDouble);
                 dispatcher.forward(request, response);
 
 //                String json = new Gson().toJson(availableDriverList);

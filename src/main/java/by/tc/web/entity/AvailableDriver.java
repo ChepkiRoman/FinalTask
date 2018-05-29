@@ -8,6 +8,7 @@ public class AvailableDriver implements Serializable {
     private Driver driver;
     private double distance;
     private String arrival_time;
+    private String cost;
 
     public Driver getDriver() {
         return driver;
@@ -33,6 +34,14 @@ public class AvailableDriver implements Serializable {
         this.arrival_time = arrival_time;
     }
 
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,13 +49,14 @@ public class AvailableDriver implements Serializable {
         AvailableDriver that = (AvailableDriver) o;
         return Double.compare(that.getDistance(), getDistance()) == 0 &&
                 Objects.equals(getDriver(), that.getDriver()) &&
-                Objects.equals(getArrival_time(), that.getArrival_time());
+                Objects.equals(getArrival_time(), that.getArrival_time()) &&
+                Objects.equals(getCost(), that.getCost());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getDriver(), getDistance(), getArrival_time());
+        return Objects.hash(getDriver(), getDistance(), getArrival_time(), getCost());
     }
 
     @Override
@@ -55,6 +65,7 @@ public class AvailableDriver implements Serializable {
                 "driver=" + driver +
                 ", distance=" + distance +
                 ", arrival_time='" + arrival_time + '\'' +
+                ", cost='" + cost + '\'' +
                 '}';
     }
 }
